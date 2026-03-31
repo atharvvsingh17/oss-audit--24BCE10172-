@@ -26,7 +26,7 @@ To run these scripts successfully, your system must meet the following requireme
 ## Instructions to Run on Linux
 1. Open your Linux terminal.
 2. Clone this repository to your local machine:
-   `git clone https://github.com/[your-username]/oss-audit-24BCE10172.git`
+   `git clone https://github.com/[atharvvsingh17]/oss-audit-24BCE10172.git`
 3. Navigate into the directory:
    `cd oss-audit-24BCE10172`
 4. Grant execution permissions to all script files:
