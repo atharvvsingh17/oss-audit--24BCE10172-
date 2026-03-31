@@ -34,5 +34,6 @@ echo "Date/Time : $CURRENT_DATE"
 echo "Uptime    : $UPTIME"
 echo "--------------------------------------"
 # A message stating which open-source license covers the OS
+
 echo "License   : This operating system is primarily governed by the GNU General Public License (GPL)."
 echo "======================================"
