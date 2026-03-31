@@ -9,6 +9,7 @@ echo "Directory Audit Report"
 echo "======================================"
 
 # Loop through each directory in the array
+
 for DIR in "${DIRS[@]}"; do
     # Check if the directory actually exists on this system
     if [ -d "$DIR" ]; then
