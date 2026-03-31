@@ -1,35 +1,23 @@
 #!/bin/bash
-# Script 4: Log File Analyzer
-# Usage: ./script4.sh /var/log/syslog [keyword]
-# Concepts used: while read loop, command-line arguments, if-then, counter variables
+# Script 4: Disk Space Health Audit
+# Author: Atharva Singh | Reg No: 24BCE10172
 
-# Take the first argument as the log file, default to /var/log/syslog if none provided
-LOGFILE=${1:-/var/log/syslog}
+echo "=========================================="
+echo "    DISK SPACE AUDIT (CONDITIONALS)"
+echo "=========================================="
 
-# Take the second argument as the keyword, default to "error" if none provided
-KEYWORD=${2:-"error"}
+# Get the current disk usage percentage of the root directory
+USAGE=$(df / | tail -1 | awk '{print $5}' | sed 's/%//')
 
-# Initialize the counter variable
-COUNT=0
+echo "Current Disk Usage: $USAGE%"
 
-# Check if the provided file exists and is a regular file
-if [ ! -f "$LOGFILE" ]; then
-    echo "Error: File $LOGFILE not found."
-    exit 1
+# Unit 4 Requirement: IF-ELSE Conditionals
+if [ "$USAGE" -gt 90 ]; then
+    echo "Status: [CRITICAL] - Storage nearly full!"
+elif [ "$USAGE" -gt 70 ]; then
+    echo "Status: [WARNING] - Storage usage is high."
+else
+    echo "Status: [HEALTHY] - Sufficient space for Python."
 fi
 
-# Read the file line by line
-while IFS= read -r LINE; do
-    # Check if the line contains the keyword (case-insensitive)
-    if echo "$LINE" | grep -iq "$KEYWORD"; then
-        # Increment the counter
-        COUNT=$((COUNT + 1))
-    fi
-done < "$LOGFILE"
-
-# Print the summary
-echo "Keyword '$KEYWORD' found $COUNT times in $LOGFILE"
-echo "--------------------------------------"
-echo "Last 5 matching lines:"
-# Use tail and grep to show the last 5 occurrences for context
-grep -i "$KEYWORD" "$LOGFILE" | tail -n 5
+echo "=========================================="

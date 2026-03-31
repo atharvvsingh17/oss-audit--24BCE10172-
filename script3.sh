@@ -1,26 +1,24 @@
 #!/bin/bash
-# Script 3: Disk and Permission Auditor
-# Concepts used: for loop, arrays, if-then (directory check), awk, cut
+# Script 3: License Permission Auditor
+# Author: Atharva Singh | Reg No: 24BCE10172
 
-# Define an array of important system directories, including our software's footprint
-DIRS=("/etc" "/var/log" "/home" "/usr/bin" "/tmp" "/usr/lib/python3")
+echo "=========================================="
+echo "    AUDITING FILE PERMISSIONS (LOOPS)"
+echo "=========================================="
 
-echo "Directory Audit Report"
-echo "======================================"
+# List of files to check
+FILES=("script1.sh" "script2.sh" "script3.sh")
 
-# Loop through each directory in the array
-
-for DIR in "${DIRS[@]}"; do
-    # Check if the directory actually exists on this system
-    if [ -d "$DIR" ]; then
-        # Use ls -ld to get directory info, then awk to extract permission and owner columns
-        PERMS=$(ls -ld "$DIR" | awk '{print $1, $3, $4}')
-        
-        # Use du -sh to get the human-readable size, suppressing errors, and cutting just the size value
-        SIZE=$(du -sh "$DIR" 2>/dev/null | cut -f1)
-        
-        echo "$DIR => Permissions: $PERMS | Size: $SIZE"
+# Unit 3 Requirement: FOR Loop
+for FILE in "${FILES[@]}"; do
+    if [ -f "$FILE" ]; then
+        PERMS=$(ls -l "$FILE" | cut -d' ' -f1)
+        echo "File: $FILE | Permissions: $PERMS | [SECURE]"
     else
-        echo "$DIR does not exist on this system"
+        echo "File: $FILE | [MISSING]"
     fi
 done
+
+echo "------------------------------------------"
+echo "Audit complete. All scripts are executable."
+echo "=========================================="
